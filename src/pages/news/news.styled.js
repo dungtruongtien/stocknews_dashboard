@@ -34,3 +34,9 @@ export const NewsItems = styled(Col)`
     border: 1px solid #e4e1e1;
     padding: 1rem;
 `;
+
+export const PaginationWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+`;

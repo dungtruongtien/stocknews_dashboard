@@ -1,14 +1,13 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './App.css';
-import HomePage from './pages/homepage';
 import Header from './components/header';
+import NewsPage from './pages/news';
 
 function App() {
   return (
     <>
       <Header />
-      <HomePage />
+      <NewsPage />
     </>
   );
 }

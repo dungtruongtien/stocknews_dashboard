@@ -19,7 +19,13 @@ export default function News({
         <div className='news-image'>
           <img src={image} width='150' height='150' alt='' />
         </div>
-        <div>
+        <div style={{
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          display: '-webkit-box',
+          WebkitLineClamp: 7,
+          WebkitBoxOrient: 'vertical'
+        }}>
           <a target="_blank" rel="noopener noreferrer" href={link}>{title}</a>
           <p>{shortDescription}</p>
         </div>

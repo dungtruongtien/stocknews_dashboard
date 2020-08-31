@@ -2,10 +2,6 @@
 import styled from 'styled-components';
 import { Row, Col } from 'antd';
 
-export const HomePageStyled = styled.div`
-
-`;
-
 export const FilterBar = styled(Row)`
     padding: 1rem;
 `;

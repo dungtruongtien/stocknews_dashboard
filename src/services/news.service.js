@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const NEWS = gql`
-    query news($from: Int, $size: Int) {
-        news(from: $from, size: $size) {
+    query news($filter: StockNewsFilter, $sort: [StockNewsSort]) {
+        news(filter: $filter, sort: $sort) {
             status
             message
             pageInfo {
@@ -16,6 +16,7 @@ export const NEWS = gql`
                 originLink
                 createdDate
                 image
+                publishedDate
             }
         }
     }

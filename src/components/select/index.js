@@ -3,13 +3,15 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
+const defaultStyle = { width: 120 };
 
-export default function SelectComponent() {
+export default function SelectComponent({ defaultValue, style = {}, options = [], onChange }) {
   return (
-    <Select defaultValue="lucy" style={{ width: 120 }}>
-      <Option value="jack">Jack</Option>
-      <Option value="lucy">Lucy</Option>
-      <Option value="Yiminghe">yiminghe</Option>
+    <Select onChange={onChange} defaultValue={defaultValue} style={{ ...defaultStyle, ...style }}>
+      {/* <Option value='none'>-- Select</Option> */}
+      {options.map((option, idx) => {
+        return (<Option key={idx} value={option.value}>{option.text}</Option>);
+      })}
     </Select>
   );
 }

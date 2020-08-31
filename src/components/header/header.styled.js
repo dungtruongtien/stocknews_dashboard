@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 export const HeaderStyled = styled(Row)`
-    padding: 1rem;
+    /* padding: 1rem; */
 `;
 
 export const Logo = styled(Col)`

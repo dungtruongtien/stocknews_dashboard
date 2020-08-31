@@ -1,14 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import Header from './components/header';
-import NewsPage from './pages/news';
+import LayoutPage from './layout';
 
 function App() {
   return (
-    <>
-      <Header />
-      <NewsPage />
-    </>
+    <LayoutPage />
   );
 }
 

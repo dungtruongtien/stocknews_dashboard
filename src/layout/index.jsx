@@ -5,7 +5,8 @@ import {
 import { Layout, Menu } from 'antd';
 import {
   DesktopOutlined,
-  PieChartOutlined
+  PieChartOutlined,
+  MoneyCollectOutlined
 } from '@ant-design/icons';
 import Header from '../components/header';
 import NewsPage from '../pages/news';
@@ -13,6 +14,7 @@ import { HeaderStyled, LayoutStyled } from './layout.styled';
 import Homepage from '../pages/homepage';
 import StockTradingSession from '../pages/stockTradingSession';
 import HistoryStockTrading from '../pages/stockTradingSession/HistoryStockTrading';
+import PersonalProperty from '../pages/personalProperty';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -52,6 +54,9 @@ export default function LayoutPage() {
             <Menu.Item key="2" icon={<DesktopOutlined />}>
               <Link to='/stock-trading-session'>Stock Owner Info</Link>
             </Menu.Item>
+            <Menu.Item key="3" icon={<MoneyCollectOutlined />}>
+              <Link to='/personal-property'>Personal Property</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
@@ -65,6 +70,7 @@ export default function LayoutPage() {
                 <Route exact path='/' component={Homepage} />
                 <Route exact path='/news' component={NewsPage} />
                 <Route exact path='/stock-trading-session' component={StockTradingSession} />
+                <Route exact path='/personal-property' component={PersonalProperty} />
                 <Route exact path='/stock-trading-session/history/:tradingKey' component={HistoryStockTrading} />
               </Switch>
             </Content>

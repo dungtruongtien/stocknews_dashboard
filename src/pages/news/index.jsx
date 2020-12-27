@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Search from 'antd/lib/input/Search';
 import { format } from 'date-fns';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { AutoComplete, Input, Pagination, Spin } from 'antd';
+import { useQuery } from '@apollo/react-hooks';
+import { Pagination, Spin } from 'antd';
 import {
   FilterBar,
   FilterOption,
@@ -50,10 +51,11 @@ export default function NewsPage() {
   const [sortField, setSortField] = useState('createdDate');
   const [sortType, setSortType] = useState('DESC');
   const [pageInfo, setPageInfo] = useState({ currentPage: 0, pageSize: 10, total: 0 });
-  const [getNewsData, {
+  const {
     loading,
-    data: stockNewsData = initNewsData
-  }] = useLazyQuery(NEWS, {
+    data: stockNewsData = initNewsData,
+    refetch: getNewsData
+  } = useQuery(NEWS, {
     variables: {
       filter: { from: 0, size: 10 },
       sort: [{ [sortField]: sortType }]
@@ -68,25 +70,14 @@ export default function NewsPage() {
     }
   }, [stockNewsData]);
 
-  useEffect(() => {
-    getNewsData({
-      variables: {
-        filter: { from: 0, size: 10 },
-        sort: [{ [sortField]: sortType }]
-      }
-    });
-  }, []);
-
   const { news: { data: newsData } } = stockNewsData;
 
   const onSortFieldChange = (value) => {
     setSortField(value);
     const { currentPage, pageSize } = pageInfo;
     getNewsData({
-      variables: {
-        filter: { from: (currentPage - 1) * pageSize, size: 10 },
-        sort: [{ [value]: sortType }]
-      }
+      filter: { from: (currentPage - 1) * pageSize, size: 10 },
+      sort: [{ [value]: sortType }]
     });
   };
 
@@ -94,20 +85,37 @@ export default function NewsPage() {
     setSortType(value);
     const { currentPage, pageSize } = pageInfo;
     getNewsData({
-      variables: {
-        filter: { from: (currentPage - 1) * pageSize, size: 10 },
-        sort: [{ [sortField]: value }]
-      }
+      filter: { from: (currentPage - 1) * pageSize, size: 10 },
+      sort: [{ [sortField]: value }]
     });
   };
 
   const onPageChange = (page, pageSize) => {
     getNewsData({
-      variables: {
-        filter: { from: (page - 1) * pageSize, size: 10 },
-        sort: [{ [sortField]: sortType }]
-      }
+      filter: { from: (page - 1) * pageSize, size: 10 },
+      sort: [{ [sortField]: sortType }]
     });
+  };
+
+  const onPageSearch = (searchValue) => {
+    if (searchValue) {
+      getNewsData({
+        filter: {
+          from: 0,
+          size: 10,
+          query: {
+            bool: {
+              should: [
+                { match: { title: searchValue } },
+                { match: { shortDescription: searchValue } },
+                { match: { link: searchValue } }
+              ]
+            }
+          }
+        },
+        sort: [{ [sortField]: sortType }]
+      });
+    }
   };
 
   return (
@@ -128,14 +136,13 @@ export default function NewsPage() {
           />
         </FilterOption>
         <SearchBar span={12}>
-          <AutoComplete
-            dropdownMatchSelectWidth={252}
-            style={{
-              width: 500
-            }}
-          >
-            <Input.Search size="large" placeholder="Search Here" enterButton />
-          </AutoComplete>
+          <Search
+            placeholder="input search text"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onPageSearch}
+          />
         </SearchBar>
       </FilterBar>
       <NewsWrapper justify='space-between'>

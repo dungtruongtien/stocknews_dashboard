@@ -47,10 +47,9 @@ const columns = [
   },
   {
     title: '% Lời/Lỗ',
-    dataIndex: 'profitOrLostPercent',
-    key: 'profitOrLostPercent',
+    dataIndex: 'profitPercent',
+    key: 'profitPercent',
     render: (text, record) => {
-      console.log('text-------', text, typeof text);
       const { stockTotalClosingPrice, stockTotalTradePrice } = record;
       const profitOrLostAmount = parseInt(stockTotalClosingPrice, 10) - parseInt(stockTotalTradePrice, 10);
       const color = text < 0 ? '#dc0a0d' : '#0dbd31';

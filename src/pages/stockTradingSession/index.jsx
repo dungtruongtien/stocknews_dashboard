@@ -25,18 +25,18 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (text) => {
-      const color = text === 'hold' ? '#abad1f' : '#dc0a0d';
+      const color = text === 'hold' ? '#1739b5' : '#ff0000';
       return (<p style={{ color }}>{text.toUpperCase()}</p>);
     }
   },
   {
     title: 'Lời/Lỗ',
-    dataIndex: 'totalProfitOrLostAmount',
-    key: 'totalProfitOrLostAmount',
+    dataIndex: 'profitAmount',
+    key: 'profitAmount',
     render: (text, record) => {
-      const { totalProfitOrLostAmount, totalProfitOrLostPercent } = record;
-      const color = totalProfitOrLostPercent < 0 ? '#dc0a0d' : '#0dbd31';
-      return (<p style={{ color }}>{moneyFormatter(totalProfitOrLostAmount)} ({totalProfitOrLostPercent}%)</p>);
+      const { profitAmount, profitPercent } = record;
+      const color = profitPercent < 0 ? '#dc0a0d' : '#0dbd31';
+      return (<p style={{ color }}>{moneyFormatter(profitAmount)} ({profitPercent}%)</p>);
     }
   },
   {

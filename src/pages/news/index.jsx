@@ -49,6 +49,7 @@ const sortTypes = [
 
 export default function NewsPage() {
   const [sortField, setSortField] = useState('createdDate');
+  const [searchText, setSearchText] = useState(null);
   const [sortType, setSortType] = useState('DESC');
   const [pageInfo, setPageInfo] = useState({ currentPage: 0, pageSize: 10, total: 0 });
   const {
@@ -91,8 +92,21 @@ export default function NewsPage() {
   };
 
   const onPageChange = (page, pageSize) => {
+    const filter = searchText ? {
+      from: 0,
+      size: 10,
+      query: {
+        bool: {
+          should: [
+            { match: { title: searchText } },
+            { match: { shortDescription: searchText } },
+            { match: { link: searchText } }
+          ]
+        }
+      }
+    } : {};
     getNewsData({
-      filter: { from: (page - 1) * pageSize, size: 10 },
+      filter: { ...filter, from: (page - 1) * pageSize, size: 10 },
       sort: [{ [sortField]: sortType }]
     });
   };
@@ -115,7 +129,10 @@ export default function NewsPage() {
         },
         sort: [{ [sortField]: sortType }]
       });
+      setSearchText(searchValue);
+      return;
     }
+    setSearchText(null);
   };
 
   return (

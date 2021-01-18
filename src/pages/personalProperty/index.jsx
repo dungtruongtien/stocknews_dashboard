@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
-import { startOfDay, endOfDay, subDays, format } from 'date-fns';
 import HighchartsReact from 'highcharts-react-official';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { PERSONAL_PROPERTY } from '../../services/personnalProperty.service';
+import PersonalPropertyHeader from './header';
 
 const ChartWrapper = styled.div`
   padding: 1rem;
-  margin: auto;
   width: 1024px;
 `;
 
-const defaultPersonalProperty = { personalPropertySession: { data: [] } };
+const defaultPersonalProperty = { personalPropertyAgg: { data: [] } };
 const chartOptionsDefault = {
   chart: {
     type: 'line'
@@ -50,20 +49,18 @@ const chartOptionsDefault = {
 
 export default function PersonalProperty() {
   const [chartOptions, setChartOption] = useState(chartOptionsDefault);
-  const { data: personalProperty = defaultPersonalProperty, loading, error } = useQuery(PERSONAL_PROPERTY, {
+  const { data: personalProperty = defaultPersonalProperty, refetch } = useQuery(PERSONAL_PROPERTY, {
     variables: {
-      filter: {
-        fromDate: subDays(startOfDay(new Date()), 30),
-        endDate: endOfDay(new Date())
-      }
+      filter: { aggType: 'DATE' }
     }
   });
   useEffect(() => {
-    const { personalPropertySession: { data: propertyData } } = personalProperty;
+    const { personalPropertyAgg: { data: propertyData } } = personalProperty;
+    console.log('propertyData------', propertyData);
     setChartOption({
       ...chartOptions,
       xAxis: {
-        categories: propertyData.map(property => format(new Date(property.date), 'MM-dd'))
+        categories: propertyData.map(property => property.text)
       },
       series: [
         {
@@ -73,13 +70,24 @@ export default function PersonalProperty() {
       ]
     });
   }, [personalProperty]);
+
+  const changeAggType = (value) => {
+    console.log('value-----', value);
+    refetch({
+      filter: { aggType: value.toUpperCase() }
+    });
+  };
+
   return (
-    <ChartWrapper>
-      <HighchartsReact
-        containerProps = {{ className: 'chart-container' }}
-        highcharts={Highcharts}
-        options={chartOptions}
-      />
-    </ChartWrapper>
+    <>
+      <PersonalPropertyHeader changeAggType={changeAggType} />
+      <ChartWrapper>
+        <HighchartsReact
+          containerProps={{ className: 'chart-container' }}
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
+      </ChartWrapper>
+    </>
   );
 }

@@ -1,19 +1,13 @@
 import gql from 'graphql-tag';
 
 export const PERSONAL_PROPERTY = gql`
-  query personalPropertySession($filter: PersonalPropertyFilter!) {
-    personalPropertySession(filter: $filter) {
+  query personalPropertyAgg($filter: PersonalPropertyFilter!) {
+    personalPropertyAgg(filter: $filter) {
       status
       message
       data {
-        _id
-        date
+        text
         price
-        financialPlanning {
-          targetPercent
-          targetPrice
-          actualResultMonthPercent
-        }
       }
     }
 }

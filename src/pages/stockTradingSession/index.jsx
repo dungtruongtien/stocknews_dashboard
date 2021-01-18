@@ -24,6 +24,8 @@ const columns = [
     title: 'Trạng Thái',
     dataIndex: 'status',
     key: 'status',
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => a.status.localeCompare(b.status),
     render: (text) => {
       const color = text === 'hold' ? '#1739b5' : '#ff0000';
       return (<p style={{ color }}>{text.toUpperCase()}</p>);

@@ -17,6 +17,9 @@ export const GET_STOCK_TRADING_SESSIONS = gql`
         tradingKey
         profitAmount
         profitPercent
+        stockTotalTradePrice
+        paperProfitAmount
+        paperProfitPercent
       }
     }
   }
@@ -45,6 +48,9 @@ export const STOCK_HISTORY = gql`
         closingPrice
         stockTotalClosingPrice
         profitPercent
+        profitAmount
+        paperProfitAmount
+        paperProfitPercent
         createdAt
         updatedAt
       }

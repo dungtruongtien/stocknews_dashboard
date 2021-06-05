@@ -8,7 +8,7 @@ import { moneyFormatter } from '../../util/formatter';
 
 const columns = [
   {
-    title: 'Ngày Mua',
+    title: 'Ngày Giao Dịch',
     dataIndex: 'createdAt',
     key: 'createdAt',
     render: (text) => {
@@ -32,7 +32,26 @@ const columns = [
     }
   },
   {
-    title: 'Lời/Lỗ',
+    title: 'Vốn',
+    dataIndex: 'stockTotalTradePrice',
+    key: 'stockTotalTradePrice',
+    render: (text, record) => {
+      const { stockTotalTradePrice } = record;
+      return (<p>{moneyFormatter(stockTotalTradePrice)}</p>);
+    }
+  },
+  {
+    title: 'Lời/Lỗ (Giấy tờ)',
+    dataIndex: 'profitAmount',
+    key: 'profitAmount',
+    render: (text, record) => {
+      const { paperProfitAmount, paperProfitPercent } = record;
+      const color = paperProfitPercent < 0 ? '#dc0a0d' : '#0dbd31';
+      return (<p style={{ color }}>{moneyFormatter(paperProfitAmount)} ({paperProfitPercent}%)</p>);
+    }
+  },
+  {
+    title: 'Lời/Lỗ (Thực tế)',
     dataIndex: 'profitAmount',
     key: 'profitAmount',
     render: (text, record) => {

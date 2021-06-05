@@ -46,14 +46,23 @@ const columns = [
     key: 'closingPrice'
   },
   {
-    title: '% Lời/Lỗ',
-    dataIndex: 'profitPercent',
-    key: 'profitPercent',
+    title: 'Lời/Lỗ (Giấy tờ)',
+    dataIndex: 'profitAmount',
+    key: 'profitAmount',
     render: (text, record) => {
-      const { stockTotalClosingPrice, stockTotalTradePrice } = record;
-      const profitOrLostAmount = parseInt(stockTotalClosingPrice, 10) - parseInt(stockTotalTradePrice, 10);
-      const color = text < 0 ? '#dc0a0d' : '#0dbd31';
-      return (<p style={{ color }}>{moneyFormatter(profitOrLostAmount)} ({text}%)</p>);
+      const { paperProfitAmount, paperProfitPercent } = record;
+      const color = paperProfitPercent < 0 ? '#dc0a0d' : '#0dbd31';
+      return (<p style={{ color }}>{moneyFormatter(paperProfitAmount)} ({paperProfitPercent}%)</p>);
+    }
+  },
+  {
+    title: 'Lời/Lỗ (Thực tế)',
+    dataIndex: 'profitAmount',
+    key: 'profitAmount',
+    render: (text, record) => {
+      const { profitAmount, profitPercent } = record;
+      const color = profitPercent < 0 ? '#dc0a0d' : '#0dbd31';
+      return (<p style={{ color }}>{moneyFormatter(profitAmount)} ({profitPercent}%)</p>);
     }
   }
 ];

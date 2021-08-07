@@ -56,7 +56,6 @@ export default function PersonalProperty() {
   });
   useEffect(() => {
     const { personalPropertyAgg: { data: propertyData } } = personalProperty;
-    console.log('propertyData------', propertyData);
     setChartOption({
       ...chartOptions,
       xAxis: {
@@ -72,7 +71,6 @@ export default function PersonalProperty() {
   }, [personalProperty]);
 
   const changeAggType = (value) => {
-    console.log('value-----', value);
     refetch({
       filter: { aggType: value.toUpperCase() }
     });

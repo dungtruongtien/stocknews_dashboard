@@ -15,7 +15,6 @@ import Homepage from '../pages/homepage';
 import StockTradingSession from '../pages/stockTradingSession';
 import HistoryStockTrading from '../pages/stockTradingSession/HistoryStockTrading';
 import PersonalProperty from '../pages/personalProperty';
-import CoinTradingPorfolio from '../pages/coin';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -26,10 +25,6 @@ const listMenu = [
   },
   {
     to: '/stock-trading-session',
-    pathName: 'stock-trading-session'
-  },
-  {
-    to: '/coin',
     pathName: 'stock-trading-session'
   }
 ];
@@ -62,9 +57,6 @@ export default function LayoutPage() {
             <Menu.Item key="3" icon={<MoneyCollectOutlined />}>
               <Link to='/personal-property'>Personal Property</Link>
             </Menu.Item>
-            <Menu.Item key="4" icon={<MoneyCollectOutlined />}>
-              <Link to='/coin'>Coin</Link>
-            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
@@ -77,7 +69,6 @@ export default function LayoutPage() {
               <Switch>
                 <Route exact path='/' component={Homepage} />
                 <Route exact path='/news' component={NewsPage} />
-                <Route exact path='/coin' component={CoinTradingPorfolio} />
                 <Route exact path='/stock-trading-session' component={StockTradingSession} />
                 <Route exact path='/personal-property' component={PersonalProperty} />
                 <Route exact path='/stock-trading-session/history/:tradingKey' component={HistoryStockTrading} />

@@ -1,25 +1,15 @@
 import gql from 'graphql-tag';
 
 export const GET_STOCK_TRADING_SESSIONS = gql`
-  query stockTradingSessions($filter: StockTradingSessionsFilter){
-    stockTradingSessions(filter: $filter) {
+  query stockTrading($filter: StockTradingFilterInput, $limit: Int, $offset: Int) {
+    stockTrading(filter: $filter, limit: $limit, offset: $offset) {
       status
       message
-      pageInfo {
-        total
-        currentPage
-      }
+      total
       data {
         _id
-        stock
-        createdAt
-        status
-        tradingKey
-        profitAmount
-        profitPercent
-        stockTotalTradePrice
-        paperProfitAmount
-        paperProfitPercent
+        stockName
+        investDate
       }
     }
   }

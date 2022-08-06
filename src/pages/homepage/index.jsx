@@ -4,5 +4,5 @@ import {
 } from 'react-router-dom';
 
 export default function Homepage() {
-  return <Redirect to="/news" />;
+  return <Redirect to="/stock-trading" />;
 }

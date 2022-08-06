@@ -3,7 +3,7 @@ import { AutoComplete, Input, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_STOCK_TRADING_SESSIONS } from '../../services/personalStocksInfo.service';
+import { GET_STOCK_TRADING } from '../../services/stockTrading.service';
 
 const columns = [
   {
@@ -35,7 +35,7 @@ export default function StockTrading() {
     loading: stockTradingLoading,
     refetch
     // error: personalStockInfoError,
-  } = useQuery(GET_STOCK_TRADING_SESSIONS, {
+  } = useQuery(GET_STOCK_TRADING, {
     variables: {
       limit: 10,
       offset: 0

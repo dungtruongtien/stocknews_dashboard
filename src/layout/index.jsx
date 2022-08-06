@@ -12,8 +12,8 @@ import Header from '../components/header';
 import NewsPage from '../pages/news';
 import { HeaderStyled, LayoutStyled } from './layout.styled';
 import Homepage from '../pages/homepage';
-import StockTradingSession from '../pages/stockTradingSession';
-import HistoryStockTrading from '../pages/stockTradingSession/HistoryStockTrading';
+import StockTrading from '../pages/stockTrading';
+import HistoryStockTrading from '../pages/stockTrading/HistoryStockTrading';
 import PersonalProperty from '../pages/personalProperty';
 
 const { Content, Footer, Sider } = Layout;
@@ -52,7 +52,7 @@ export default function LayoutPage() {
               <Link to='/news'>News</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<DesktopOutlined />}>
-              <Link to='/stock-trading-session'>Stock Owner Info</Link>
+              <Link to='/stock-trading'>Stock Owner Info</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<MoneyCollectOutlined />}>
               <Link to='/personal-property'>Personal Property</Link>
@@ -69,7 +69,7 @@ export default function LayoutPage() {
               <Switch>
                 <Route exact path='/' component={Homepage} />
                 <Route exact path='/news' component={NewsPage} />
-                <Route exact path='/stock-trading-session' component={StockTradingSession} />
+                <Route exact path='/stock-trading' component={StockTrading} />
                 <Route exact path='/personal-property' component={PersonalProperty} />
                 <Route exact path='/stock-trading-session/history/:tradingKey' component={HistoryStockTrading} />
               </Switch>
